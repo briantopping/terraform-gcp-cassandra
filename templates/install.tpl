@@ -15,7 +15,7 @@ echo "deb http://www.apache.org/dist/cassandra/debian ${cassandra_version} main"
  | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
 
 curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add -
-sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-key A278B781FE4B2BDA
+sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-key E91335D77E3E87CB
 
 sudo apt-get update -y
 

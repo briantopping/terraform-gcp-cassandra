@@ -129,7 +129,7 @@ back_pressure_strategy:
         - high_ratio: 0.90
           factor: 5
           flow: FAST
-auto_bootstrap: false" | sudo tee /etc/cassandra/cassandra.yaml
+auto_bootstrap: \"${auto_bootstrap}\"" | sudo tee /etc/cassandra/cassandra.yaml
 
 sudo systemctl start cassandra.service
 sudo systemctl force-reload cassandra.service

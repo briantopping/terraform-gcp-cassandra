@@ -6,11 +6,12 @@ data "template_file" "install" {
 }
 
 data "template_file" "configure" {
-  template = var.bootstrap == "true" ? file("${path.module}/templates/configure-add.tpl") :  file("${path.module}/templates/configure-new.tpl")
+  template = file("${path.module}/templates/configure.tpl")
 
   vars = {
     cluster_name = var.cassandra_cluster_name
-    seeds = var.bootstrap == "true" ? local.seeds_add : local.seeds_new
+    seeds = var.existing_cluster == "true" ? local.seeds_add : local.seeds_new
+    auto_bootstrap = var.existing_cluster
   }
 }
 

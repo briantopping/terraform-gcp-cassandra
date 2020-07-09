@@ -52,7 +52,7 @@ variable "ssh_key_path" {
   description = "ssh key path name for remote exec"
 }
 
-variable "bootstrap" {
+variable "existing_cluster" {
   description = "false for new cluster, true for adding nodes to existing cluster"
 }
 

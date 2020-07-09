@@ -7,6 +7,8 @@ provider "google" {
 module "cassandra" {
   source = "../../"
 
+  existing_cluster = "false"
+  subnetwork = "subnetwork name"
   ssh_user = "ssh user name"
   ssh_key_path = "path/to/ssh/private/key"
 }

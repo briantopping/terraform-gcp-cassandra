@@ -21,7 +21,7 @@ variable "cassandra_version" {
 
 variable "base_os" {
   description = "Base OS, one of ['ubuntu', 'centos']"
-  default = "centos"
+  default = "ubuntu"
 }
 
 variable "machine_type" {

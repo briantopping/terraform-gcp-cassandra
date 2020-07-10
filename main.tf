@@ -1,5 +1,5 @@
 data "template_file" "install" {
-  template = file("${path.module}/templates/install.tpl")
+  template = file("${path.module}/templates/install-${var.base_os}.tpl")
   vars = {
     cassandra_version = var.cassandra_version
   }
@@ -12,6 +12,7 @@ data "template_file" "configure" {
     cluster_name = var.cassandra_cluster_name
     seeds = var.existing_cluster == "true" ? local.seeds_add : local.seeds_new
     auto_bootstrap = var.existing_cluster
+    config_home = "${var.base_os}" == "centos" ? "/etc/cassandra/default.conf/cassandra.yaml" : ("${var.base_os}" == "ubuntu" ? "/etc/cassandra/cassandra.yaml": "")
   }
 }
 
@@ -25,6 +26,7 @@ locals {
   count = length(data.google_compute_zones.available.names)
   seeds_new = join("," , concat( slice(google_compute_instance.default.*.network_interface.0.network_ip,0,2),var.add_seeds))
   seeds_add = join("," , var.add_seeds)
+  image = "${var.base_os}" == "centos" ? "centos-cloud/centos-7" : ("${var.base_os}" == "ubuntu" ? "ubuntu-os-cloud/ubuntu-1604-lts": "")
 }
 
 resource "google_compute_disk" "default" {
@@ -48,7 +50,7 @@ resource "google_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-1604-xenial-v20180509"
+      image = local.image
       size  = var.boot_disk_size
       type  = "pd-ssd"
     }

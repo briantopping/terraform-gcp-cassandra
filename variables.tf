@@ -19,6 +19,11 @@ variable "cassandra_version" {
   default = "311x"
 }
 
+variable "base_os" {
+  description = "Base OS, one of ['ubuntu', 'centos']"
+  default = "centos"
+}
+
 variable "machine_type" {
   description = "GCE machine type"
   default = "n1-standard-4"
